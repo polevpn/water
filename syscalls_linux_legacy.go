@@ -22,6 +22,5 @@ func openDev(config Config) (ifce *Interface, err error) {
 		isTAP:           config.DeviceType == TAP,
 		ReadWriteCloser: file,
 		name:            name,
-		fd:              file.Fd(),
 	}, nil
 }

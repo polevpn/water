@@ -14,7 +14,6 @@ type Interface struct {
 	isTAP bool
 	io.ReadWriteCloser
 	name string
-	fd   int
 }
 
 // DeviceType is the type for specifying device types.
@@ -65,6 +64,14 @@ func New(config Config) (ifce *Interface, err error) {
 	}
 }
 
+func NewInterface(name string, file io.ReadWriteCloser, isTAP bool) *Interface {
+	return &Interface{
+		name:            name,
+		ReadWriteCloser: file,
+		isTAP:           isTAP,
+	}
+}
+
 // IsTUN returns true if ifce is a TUN interface.
 func (ifce *Interface) IsTUN() bool {
 	return !ifce.isTAP
@@ -78,9 +85,4 @@ func (ifce *Interface) IsTAP() bool {
 // Name returns the interface name of ifce, e.g. tun0, tap1, tun0, etc..
 func (ifce *Interface) Name() string {
 	return ifce.name
-}
-
-// Name returns the interface name of ifce, e.g. tun0, tap1, tun0, etc..
-func (ifce *Interface) FD() int {
-	return ifce.fd
 }
