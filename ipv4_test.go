@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/songgao/water/waterutil"
+	"github.com/polevpn/water/waterutil"
 )
 
 const BUFFERSIZE = 1522
@@ -26,6 +26,17 @@ func startRead(t *testing.T, ifce *Interface) (dataChan <-chan []byte, errChan <
 		}
 	}()
 	return dataCh, errCh
+}
+
+func TestInterface(t *testing.T) {
+	config := Config{
+		DeviceType: TUN,
+	}
+	ifce, err := New(config)
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Log(ifce.Name(), ifce.FD())
 }
 
 func waitForPingOrBust(t *testing.T,

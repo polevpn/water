@@ -279,7 +279,7 @@ func openDev(config Config) (ifce *Interface, err error) {
 		return
 	}
 	fd := &wfile{fd: file, ro: ro, wo: wo}
-	ifce = &Interface{isTAP: (config.DeviceType == TAP), ReadWriteCloser: fd}
+	ifce = &Interface{isTAP: (config.DeviceType == TAP), ReadWriteCloser: fd, fd: file}
 
 	// bring up device.
 	if err := setStatus(file, true); err != nil {
