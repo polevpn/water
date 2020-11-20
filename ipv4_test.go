@@ -36,7 +36,7 @@ func TestInterface(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	t.Log(ifce.Name(), ifce.FD())
+	t.Log(ifce.Name())
 }
 
 func waitForPingOrBust(t *testing.T,
