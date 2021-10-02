@@ -25,3 +25,7 @@ func openDev(config Config) (ifce *Interface, err error) {
 		name:            name,
 	}, nil
 }
+
+func updateTunNetwork(ifce *Interface, network string) error {
+	return nil
+}

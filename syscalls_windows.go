@@ -234,6 +234,11 @@ func setTUN(fd syscall.Handle, network string) error {
 	return nil
 }
 
+func updateTunNetwork(ifce *Interface, network string) error {
+	rwfile := ifce.ReadWriteCloser.(*wfile)
+	return setTUN(rwfile.fd, network)
+}
+
 // openDev find and open an interface.
 func openDev(config Config) (ifce *Interface, err error) {
 	// find the device in registry.

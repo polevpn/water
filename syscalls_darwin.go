@@ -72,6 +72,10 @@ func openDev(config Config) (ifce *Interface, err error) {
 	return nil, errors.New("unrecognized driver")
 }
 
+func updateTunNetwork(ifce *Interface, network string) error {
+	return nil
+}
+
 // openDevSystem opens tun device on system
 func openDevSystem(config Config) (ifce *Interface, err error) {
 	if config.DeviceType != TUN {

@@ -3,7 +3,6 @@ package water
 import (
 	"errors"
 	"io"
-	"runtime"
 )
 
 // Interface is a TUN/TAP interface.
@@ -88,12 +87,8 @@ func (ifce *Interface) Name() string {
 	return ifce.name
 }
 
-// Name returns the interface name of ifce, e.g. tun0, tap1, tun0, etc..
+// update tundevice just for windows
 func (ifce *Interface) SetTunNetwork(network string) error {
-	if runtime.GOOS == "windows" {
-		rwfile := ifce.ReadWriteCloser.(*wfile)
-		return setTUN(rwfile.fd, network)
 
-	}
-	return nil
+	return updateTunNetwork(ifce, network)
 }
