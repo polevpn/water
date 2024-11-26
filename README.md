@@ -8,7 +8,7 @@
 * exposes standard interfaces; plays well with standard packages like `io`, `bufio`, etc..
 * does not handle memory management (allocating/destructing slice). It's up to user to decide whether/how to reuse buffers.
 
-~~`water/waterutil` has some useful functions to interpret MAC frame headers and IP packet headers. It also contains some constants such as protocol numbers and ethernet frame types.~~
+~~`water/util` has some useful functions to interpret MAC frame headers and IP packet headers. It also contains some constants such as protocol numbers and ethernet frame types.~~
 
 See https://github.com/songgao/packets for functions for parsing various packets.
 
@@ -21,7 +21,7 @@ See https://github.com/songgao/packets for functions for parsing various packets
 ## Installation
 ```
 go get -u github.com/songgao/water
-go get -u github.com/songgao/water/waterutil
+go get -u github.com/songgao/water/util
 ```
 
 ## Documentation

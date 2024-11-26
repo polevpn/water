@@ -154,6 +154,10 @@ func openDevSystem(config Config) (ifce *Interface, err error) {
 	}, nil
 }
 
+func setNonBlock(fd int) error {
+	return syscall.SetNonblock(fd, true)
+}
+
 // openDevTunTapOSX opens tun / tap device, assuming tuntaposx is installed
 func openDevTunTapOSX(config Config) (ifce *Interface, err error) {
 	var fd int

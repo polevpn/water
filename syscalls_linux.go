@@ -20,6 +20,25 @@ type ifReq struct {
 	pad   [0x28 - 0x10 - 2]byte
 }
 
+func openDev(config Config) (ifce *Interface, err error) {
+	var fdInt int
+	if fdInt, err = syscall.Open(
+		"/dev/net/tun", os.O_RDWR|syscall.O_NONBLOCK, 0); err != nil {
+		return nil, err
+	}
+
+	name, err := setupFd(config, uintptr(fdInt))
+	if err != nil {
+		return nil, err
+	}
+
+	return &Interface{
+		isTAP:           config.DeviceType == TAP,
+		ReadWriteCloser: os.NewFile(uintptr(fdInt), "tun"),
+		name:            name,
+	}, nil
+}
+
 func ioctl(fd uintptr, request uintptr, argp uintptr) error {
 	_, _, errno := syscall.Syscall(syscall.SYS_IOCTL, fd, uintptr(request), argp)
 	if errno != 0 {

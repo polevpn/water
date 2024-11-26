@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/polevpn/water/waterutil"
+	"github.com/polevpn/water/util"
 )
 
 const BUFFERSIZE = 1522
@@ -52,27 +52,27 @@ readFrame:
 		case buffer := <-dataCh:
 			var packet []byte
 			if isTAP {
-				ethertype := waterutil.MACEthertype(buffer)
-				if ethertype != waterutil.IPv4 {
+				ethertype := util.MACEthertype(buffer)
+				if ethertype != util.IPv4 {
 					continue readFrame
 				}
-				if expectBroadcast && !waterutil.IsBroadcast(waterutil.MACDestination(buffer)) {
+				if expectBroadcast && !util.IsBroadcast(util.MACDestination(buffer)) {
 					continue readFrame
 				}
-				packet = waterutil.MACPayload(buffer)
+				packet = util.MACPayload(buffer)
 			} else {
 				packet = buffer
 			}
-			if !waterutil.IsIPv4(packet) {
+			if !util.IsIPv4(packet) {
 				continue readFrame
 			}
-			if !waterutil.IPv4Source(packet).Equal(expectSrc) {
+			if !util.IPv4Source(packet).Equal(expectSrc) {
 				continue readFrame
 			}
-			if !waterutil.IPv4Destination(packet).Equal(expectDest) {
+			if !util.IPv4Destination(packet).Equal(expectDest) {
 				continue readFrame
 			}
-			if waterutil.IPv4Protocol(packet) != waterutil.ICMP {
+			if util.IPv4Protocol(packet) != util.ICMP {
 				continue readFrame
 			}
 			t.Logf("received broadcast frame: %#v\n", buffer)
